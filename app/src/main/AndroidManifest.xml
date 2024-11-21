@@ -13,17 +13,32 @@
         android:theme="@style/Base.Theme.Planitorium"
         tools:targetApi="31">
         <activity
-            android:name=".ui.welcome.WelcomeActivity"
+            android:name=".ui.auth.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+            android:name=".ui.auth.SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.welcome.WelcomeActivity"
+            android:exported="true">
+            <!-- Aktifin intent filter disini, kalo pgn dimulai dari welcome activity-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <!-- Aktifin intent filter disini, kalo pgn dimulai dari main activity -->
+            <!--
+                <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
         </activity>
     </application>
 
