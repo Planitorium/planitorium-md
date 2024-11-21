@@ -12,6 +12,9 @@
     <string name="planted_date">Planted Date</string>
     <string name="Notes">Type Notes Here ...</string>
 
+    <!-- Welcome Page -->
+    <string name="welcome_text">Welcome to Planitorium</string>
+
     <!-- Authentication -->
     <string name="email">Email address</string>
     <string name="password">Password</string>

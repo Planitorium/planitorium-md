@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.bangkit.capstone.planitorium"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -59,5 +59,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // More
-
+    implementation(libs.androidx.activity.ktx)
 }
