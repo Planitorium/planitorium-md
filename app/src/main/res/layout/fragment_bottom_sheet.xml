@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+    <!-- Plant Name Text Field -->
+    <TextView
+        android:text="@string/add_new_plant"
+        android:textSize="32sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+    />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+
+    <EditText
+        android:id="@+id/eventNameField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_box"
+        android:hint="Plant name"
+        android:inputType="text" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+
+    <EditText
+        android:id="@+id/noteField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Notes"
+        android:background="@drawable/edit_text_box"
+        android:inputType="textMultiLine"
+        android:minLines="4"/>
+
+    <!-- Start Time and End Time -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:paddingTop="12dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/startTimeField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/planted_date"
+                android:background="@drawable/edit_text_box"
+                android:focusable="false"
+                android:inputType="none"
+                android:drawableEnd="@drawable/baseline_calendar_month_24"/>
+
+        </LinearLayout>
+
+
+        <Space
+            android:layout_width="12dp"
+            android:layout_height="16dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/endTimeField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/harvest_date"
+                android:background="@drawable/edit_text_box"
+                android:focusable="false"
+                android:inputType="none"
+                android:drawableEnd="@drawable/baseline_calendar_month_24"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imagePlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/add_image"
+        android:src="@drawable/placeholder"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true" />
+
+</LinearLayout>
