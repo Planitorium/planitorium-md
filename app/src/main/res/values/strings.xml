@@ -6,11 +6,6 @@
     <string name="add">add</string>
     <string name="profile">profile</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="add_image">Add Image</string>
-    <string name="add_new_plant">Add New Plant</string>
-    <string name="harvest_date">Harvest Date</string>
-    <string name="planted_date">Planted Date</string>
-    <string name="Notes">Type Notes Here ...</string>
 
     <!-- Welcome Page -->
     <string name="welcome_text">Welcome to Planitorium</string>
@@ -26,4 +21,16 @@
 
     <!-- Other -->
     <string name="default_image">images</string>
+    <string name="profile_picture">profile picture</string>
+    <string name="signout">Sign Out</string>
+    <string name="plant_name">plant name</string>
+    <string name="plants">Plants</string>
+    <string name="disease_detection">Detection</string>
+    <string name="date">date</string>
+    <string name="healthy">healthy: %s%%</string>
+    <string name="add_image">Add Image</string>
+    <string name="add_new_plant">Add New Plant</string>
+    <string name="harvest_date">Harvest Date</string>
+    <string name="planted_date">Planted Date</string>
+    <string name="Notes">Type Notes Here...</string>
 </resources>

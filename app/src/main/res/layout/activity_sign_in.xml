@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="@string/app_name"
+        android:text="@string/signin"
         android:textAllCaps="true"
         android:textAppearance="?attr/textAppearanceHeadline4"
         android:textStyle="bold"
@@ -118,9 +118,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
+            android:focusable="true"
             android:text="@string/signup"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="@color/colorPrimary"
+            android:clickable="true"
             android:textStyle="bold" />
     </LinearLayout>
 

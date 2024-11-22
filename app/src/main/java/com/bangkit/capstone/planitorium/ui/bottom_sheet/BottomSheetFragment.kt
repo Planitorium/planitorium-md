@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -41,12 +42,17 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         val startTimeField: EditText = view.findViewById(R.id.startTimeField)
         val endTimeField: EditText = view.findViewById(R.id.endTimeField)
         val imagePreview: ImageView = view.findViewById(R.id.imagePlaceholder)
+        val addPlantButton: Button = view.findViewById(R.id.addPlantButton)
 
         startTimeField.setOnClickListener { showDatePicker(startTimeField) }
         endTimeField.setOnClickListener { showDatePicker(endTimeField) }
 
         imagePreview.setOnClickListener {
             imagePickerLauncher.launch(arrayOf("image/*"))
+        }
+
+        addPlantButton.setOnClickListener{
+            this.dismiss()
         }
 
         return view

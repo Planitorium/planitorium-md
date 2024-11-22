@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/disease_image"
+        android:layout_width="match_parent"
+        android:layout_height="150sp"
+        android:contentDescription="@string/default_image"
+        android:src="@drawable/placeholder"
+        android:scaleType="fitXY"
+        />
+
+    <TextView
+        android:id="@+id/checked_date"
+        android:text="@string/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/disease_name"
+        android:text="@string/plant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:layout_marginStart="8dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/healthy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/healthy"
+        android:layout_marginStart="8dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

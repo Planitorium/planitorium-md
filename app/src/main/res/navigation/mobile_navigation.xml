@@ -12,16 +12,16 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.bangkit.capstone.planitorium.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_plant_list"
+        android:name="com.bangkit.capstone.planitorium.ui.plant_list.PlantListFragment"
+        android:label="Plant"
+        tools:layout="@layout/fragment_plant_list" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.bangkit.capstone.planitorium.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_detection"
+        android:name="com.bangkit.capstone.planitorium.ui.disease_detection.DiseaseDetectionFragment"
+        android:label="Disease Detection"
+        tools:layout="@layout/fragment_disease_detection" />
 
     <fragment
         android:id="@+id/navigation_profile"

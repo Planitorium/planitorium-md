@@ -60,4 +60,6 @@ dependencies {
 
     // More
     implementation(libs.androidx.activity.ktx)
+    implementation(libs.glide)
+    implementation(libs.glide.transformations)
 }
