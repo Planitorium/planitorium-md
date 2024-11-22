@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Planitorium</string>
+
+    <!-- Bottom Navigation -->
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="plants">Plants</string>
+    <string name="disease_detection">Detection</string>
     <string name="add">add</string>
-    <string name="profile">profile</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">Profile</string>
 
     <!-- Welcome Page -->
     <string name="welcome_text">Welcome to Planitorium</string>
@@ -19,18 +20,20 @@
     <string name="signin_text">Don\'t have an account ?</string>
     <string name="signup_text">Already have an account ?</string>
 
-    <!-- Other -->
-    <string name="default_image">images</string>
-    <string name="profile_picture">profile picture</string>
+    <!-- Profile -->
+    <string name="profile_picture">Profile Picture</string>
     <string name="signout">Sign Out</string>
-    <string name="plant_name">plant name</string>
-    <string name="plants">Plants</string>
-    <string name="disease_detection">Detection</string>
-    <string name="date">date</string>
-    <string name="healthy">healthy: %s%%</string>
+
+    <!-- Plants -->
+    <string name="plant_name">Plant Name</string>
+    <string name="date">Date</string>
+    <string name="healthy">Healthy: %s%%</string>
     <string name="add_image">Add Image</string>
     <string name="add_new_plant">Add New Plant</string>
     <string name="harvest_date">Harvest Date</string>
     <string name="planted_date">Planted Date</string>
     <string name="Notes">Type Notes Here...</string>
+
+    <!-- Other -->
+    <string name="default_image">images</string>
 </resources>
