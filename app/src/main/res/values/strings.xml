@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Planitorium</string>
 
     <!-- Bottom Navigation -->
@@ -32,7 +32,11 @@
     <string name="add_new_plant">Add New Plant</string>
     <string name="harvest_date">Harvest Date</string>
     <string name="planted_date">Planted Date</string>
-    <string name="Notes">Type Notes Here...</string>
+    <string name="Notes" tools:ignore="TypographyEllipsis">Type Notes Here...</string>
+    
+    <!-- Disease Detection -->
+    <string name="disease_detection_title">Disease Detection</string>
+    <string name="analyze">Analyze</string>
 
     <!-- Other -->
     <string name="default_image">images</string>
