@@ -9,6 +9,7 @@ import com.bangkit.capstone.planitorium.R
 import com.bangkit.capstone.planitorium.model.PlantItem
 
 class PlantListAdapter(private val items: List<PlantItem>) : RecyclerView.Adapter<PlantListAdapter.PlantViewHolder>() {
+    private lateinit var onItemClickCallback: OnItemClickCallback
 
     class PlantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val date: TextView = view.findViewById(R.id.date)
@@ -27,6 +28,19 @@ class PlantListAdapter(private val items: List<PlantItem>) : RecyclerView.Adapte
         holder.date.text = item.date
         holder.plantName.text = item.plantName
         holder.notes.text = item.notes
+
+        holder.itemView.setOnClickListener{
+            onItemClickCallback.onItemClicked(item)
+        }
+    }
+
+    //OnClick Callback
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: PlantItem)
     }
 
     override fun getItemCount(): Int = items.size

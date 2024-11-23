@@ -29,15 +29,18 @@
     <string name="date">Date</string>
     <string name="healthy">Healthy: %s%%</string>
     <string name="add_image">Add Image</string>
+    <string name="plant_image">Plant Image</string>
     <string name="add_new_plant">Add New Plant</string>
     <string name="harvest_date">Harvest Date</string>
     <string name="planted_date">Planted Date</string>
     <string name="Notes" tools:ignore="TypographyEllipsis">Type Notes Here...</string>
-    
+
     <!-- Disease Detection -->
     <string name="disease_detection_title">Disease Detection</string>
     <string name="analyze">Analyze</string>
 
     <!-- Other -->
     <string name="default_image">images</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

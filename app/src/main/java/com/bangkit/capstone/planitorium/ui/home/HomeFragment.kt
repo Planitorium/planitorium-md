@@ -33,9 +33,9 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         val dummyData = listOf(
-            PlantItem("url","2024-11-22", "Rose", "Do not forget to water daily"),
-            PlantItem("url","2024-11-21", "Tulip", "Always keep in sunlight"),
-            PlantItem("url","2024-11-20", "Cactus", "Do not forget to water daily")
+            PlantItem("url","2024-11-22", "Rose", "Do not forget to water daily", "2024-11-22", "2024-12-22"),
+            PlantItem("url","2024-11-21", "Tulip", "Always keep in sunlight", "2024-11-22", "2024-12-22"),
+            PlantItem("url","2024-11-20", "Cactus", "Do not forget to water daily", "2024-11-22", "2024-12-22")
         )
 
         val recyclerView: RecyclerView = binding.eventsRecyclerView

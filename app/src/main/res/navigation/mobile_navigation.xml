@@ -15,7 +15,11 @@
         android:id="@+id/navigation_plant_list"
         android:name="com.bangkit.capstone.planitorium.ui.plant_list.PlantListFragment"
         android:label="Plant"
-        tools:layout="@layout/fragment_plant_list" />
+        tools:layout="@layout/fragment_plant_list" >
+        <action
+            android:id="@+id/action_navigation_plant_list_to_plantListDetailFragment"
+            app:destination="@id/navigation_plant_list_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_detection"
@@ -28,5 +32,10 @@
         android:name="com.bangkit.capstone.planitorium.ui.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/navigation_plant_list_detail"
+        android:name="com.bangkit.capstone.planitorium.ui.plant_list.PlantListDetailFragment"
+        android:label="fragment_plant_list_detail"
+        tools:layout="@layout/fragment_plant_list_detail" />
 
 </navigation>

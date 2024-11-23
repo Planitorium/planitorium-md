@@ -46,15 +46,22 @@ class MainActivity : AppCompatActivity() {
                     binding.fab.setOnClickListener {
                         BottomSheetPlantListFragment().show(supportFragmentManager, "plant_list_bottom_sheet")
                     }
+                    navView.visibility = View.VISIBLE
                 }
                 R.id.navigation_detection -> {
                     binding.fab.visibility = View.VISIBLE
                     binding.fab.setOnClickListener {
                         BottomSheetDiseaseDetectionFragment().show(supportFragmentManager, "disease_detection_bottom_sheet")
                     }
+                    navView.visibility = View.VISIBLE
+                }
+                R.id.navigation_plant_list_detail -> {
+                    binding.fab.visibility = View.GONE
+                    navView.visibility = View.GONE
                 }
                 else -> {
                     binding.fab.visibility = View.GONE
+                    navView.visibility = View.VISIBLE
                 }
             }
         }
