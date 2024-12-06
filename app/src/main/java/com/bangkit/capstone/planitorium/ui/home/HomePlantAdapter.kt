@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.capstone.planitorium.R
-import com.bangkit.capstone.planitorium.model.PlantItem
+import com.bangkit.capstone.planitorium.core.data.model.PlantItem
 
 class HomePlantAdapter(private val items: List<PlantItem>) : RecyclerView.Adapter<HomePlantAdapter.PlantViewHolder>() {
 

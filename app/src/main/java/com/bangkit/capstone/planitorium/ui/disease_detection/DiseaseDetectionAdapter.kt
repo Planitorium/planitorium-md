@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.capstone.planitorium.R
-import com.bangkit.capstone.planitorium.model.DiseaseItem
+import com.bangkit.capstone.planitorium.core.data.model.DiseaseItem
 
 class DiseaseDetectionAdapter(private val diseaseList: List<DiseaseItem>) : RecyclerView.Adapter<DiseaseDetectionAdapter.DiseaseViewHolder>() {
 

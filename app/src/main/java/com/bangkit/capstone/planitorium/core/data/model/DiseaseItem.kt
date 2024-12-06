@@ -1,4 +1,4 @@
-package com.bangkit.capstone.planitorium.model
+package com.bangkit.capstone.planitorium.core.data.model
 
 data class DiseaseItem(
     val image: String,

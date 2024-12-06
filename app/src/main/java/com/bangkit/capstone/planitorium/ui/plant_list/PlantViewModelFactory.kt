@@ -3,8 +3,8 @@ package com.bangkit.capstone.planitorium.ui.plant_list
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bangkit.capstone.planitorium.data.repository.PlantRepository
-import com.bangkit.capstone.planitorium.di.Injection
+import com.bangkit.capstone.planitorium.core.data.repository.PlantRepository
+import com.bangkit.capstone.planitorium.core.di.Injection
 
 class PlantViewModelFactory (
     private val plantRepository: PlantRepository,

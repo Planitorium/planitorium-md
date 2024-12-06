@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.capstone.planitorium.R
-import com.bangkit.capstone.planitorium.data.remote.response.PlantsItem
-import com.bangkit.capstone.planitorium.data.remote.response.StartTime
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantsItem
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.StartTime
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.capstone.planitorium.databinding.FragmentHomeBinding
-import com.bangkit.capstone.planitorium.model.PlantItem
+import com.bangkit.capstone.planitorium.core.data.model.PlantItem
 
 class HomeFragment : Fragment() {
 

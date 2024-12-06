@@ -1,4 +1,4 @@
-package com.bangkit.capstone.planitorium.data.remote.response
+package com.bangkit.capstone.planitorium.core.data.remote.response.plant
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable

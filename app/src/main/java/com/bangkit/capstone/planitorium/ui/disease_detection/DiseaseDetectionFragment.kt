@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.capstone.planitorium.databinding.FragmentDiseaseDetectionBinding
-import com.bangkit.capstone.planitorium.model.DiseaseItem
+import com.bangkit.capstone.planitorium.core.data.model.DiseaseItem
 
 class DiseaseDetectionFragment : Fragment() {
 

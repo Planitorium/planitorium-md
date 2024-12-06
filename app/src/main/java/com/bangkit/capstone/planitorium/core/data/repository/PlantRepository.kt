@@ -1,15 +1,15 @@
-package com.bangkit.capstone.planitorium.data.repository
+package com.bangkit.capstone.planitorium.core.data.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bangkit.capstone.planitorium.data.remote.response.AddPlantResponse
-import com.bangkit.capstone.planitorium.data.remote.response.GetPlantDetailResponse
-import com.bangkit.capstone.planitorium.data.remote.response.PlantItem
-import com.bangkit.capstone.planitorium.data.remote.response.PlantListResponse
-import com.bangkit.capstone.planitorium.data.remote.response.PlantsItem
-import com.bangkit.capstone.planitorium.data.remote.retrofit.ApiService
-import com.bangkit.capstone.planitorium.utils.AppExecutors
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.AddPlantResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.GetPlantDetailResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantItem
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantListResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantsItem
+import com.bangkit.capstone.planitorium.core.data.remote.retrofit.ApiService
+import com.bangkit.capstone.planitorium.core.utils.AppExecutors
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody

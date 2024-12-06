@@ -2,8 +2,8 @@ package com.bangkit.capstone.planitorium.ui.plant_list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.bangkit.capstone.planitorium.data.remote.response.PlantsItem
-import com.bangkit.capstone.planitorium.data.repository.PlantRepository
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantsItem
+import com.bangkit.capstone.planitorium.core.data.repository.PlantRepository
 import java.io.File
 
 class PlantListViewModel (
