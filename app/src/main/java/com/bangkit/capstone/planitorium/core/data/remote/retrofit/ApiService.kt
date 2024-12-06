@@ -1,41 +1,44 @@
-package com.bangkit.capstone.planitorium.data.remote.retrofit
+package com.bangkit.capstone.planitorium.core.data.remote.retrofit
 
-import com.bangkit.capstone.planitorium.data.remote.response.AddPlantResponse
-import com.bangkit.capstone.planitorium.data.remote.response.GetPlantDetailResponse
-import com.bangkit.capstone.planitorium.data.remote.response.PlantListResponse
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.http.*;
+import com.bangkit.capstone.planitorium.core.data.remote.request.SignInRequest
+import com.bangkit.capstone.planitorium.core.data.remote.request.SignUpRequest
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.AddPlantResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.GetPlantDetailResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantListResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignInResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignUpResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.profile.ProfileResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.http.*
 
 interface ApiService {
-    // Authentication endpoints
-    @FormUrlEncoded
-    @POST("api/auth/register")
-    fun registerApi(
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): Call<ResponseBody>;
+    //// Authentication endpoint ////
 
-    @FormUrlEncoded
+    // Register
+    @POST("api/auth/register")
+    suspend fun registerApi(
+        @Body request: SignUpRequest
+    ): SignUpResponse
+
+    // Login
     @POST("api/auth/login")
-    fun loginApi(
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): Call<ResponseBody>;
+    suspend fun loginApi(
+        @Body request: SignInRequest
+    ): SignInResponse
 
     @POST("api/auth/logout")
     fun logoutApi(
         @Query("token") active: String
-    ): Call<ResponseBody>
+    ): Call<ResponseBody> // Belum kuubah gegara, API masih salah
 
+    //// Authentication endpoint ////
 
-    // Profile endpoints
+    //// Profile endpoints ////
     @GET("api/profile")
-    fun getProfileApi(
-        @Header("Authorization") token: String
-    ): Call<ResponseBody>
+    suspend fun getProfileApi(): ProfileResponse
 
     @GET("api/profile/photo/{filename}")
     fun getPhotoApi(
@@ -50,6 +53,7 @@ interface ApiService {
         @Part photo: MultipartBody.Part
     ): Call<ResponseBody>
 
+    //// Profile endpoints ////
 
     // Plant endpoints
     @Multipart

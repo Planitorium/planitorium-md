@@ -1,4 +1,4 @@
-package com.bangkit.capstone.planitorium.utils
+package com.bangkit.capstone.planitorium.core.utils
 
 import android.os.Handler
 import android.os.Looper

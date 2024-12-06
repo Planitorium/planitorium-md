@@ -16,6 +16,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "BASE_URL", "\"https://capstoneapi-536767990649.asia-southeast2.run.app/\"")
     }
 
     buildTypes {
@@ -58,6 +59,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Local
+    implementation(libs.androidx.datastore.preferences)
 
     //Retrofit
     implementation (libs.retrofit)
