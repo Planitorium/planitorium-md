@@ -6,9 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.capstone.planitorium.R
-import com.bangkit.capstone.planitorium.model.PlantItem
+import com.bangkit.capstone.planitorium.data.remote.response.PlantsItem
+import com.bangkit.capstone.planitorium.data.remote.response.StartTime
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-class PlantListAdapter(private val items: List<PlantItem>) : RecyclerView.Adapter<PlantListAdapter.PlantViewHolder>() {
+class PlantListAdapter(private val items: List<PlantsItem>) : RecyclerView.Adapter<PlantListAdapter.PlantViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     class PlantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -25,10 +29,9 @@ class PlantListAdapter(private val items: List<PlantItem>) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: PlantViewHolder, position: Int) {
         val item = items[position]
-        holder.date.text = item.date
-        holder.plantName.text = item.plantName
-        holder.notes.text = item.notes
-
+        holder.date.text = if (item.startTime == null) "No Date" else convertTimestampToDate(item.startTime)
+        holder.plantName.text = if (item.name.isNullOrBlank()) "No Name" else item.name
+        holder.notes.text = if (item.description.isNullOrBlank()) "No Description" else item.description
         holder.itemView.setOnClickListener{
             onItemClickCallback.onItemClicked(item)
         }
@@ -40,8 +43,27 @@ class PlantListAdapter(private val items: List<PlantItem>) : RecyclerView.Adapte
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: PlantItem)
+        fun onItemClicked(data: PlantsItem)
     }
 
     override fun getItemCount(): Int = items.size
+
+    private fun convertTimestampToDate(time: StartTime?): String? {
+        // Ensure the time object and seconds are not null
+        if (time?.seconds == null) return null
+
+        // Convert seconds to milliseconds
+        val secondsInMillis = time.seconds * 1000L
+
+        // Convert nanoseconds to milliseconds (if available)
+        val nanosecondsInMillis = (time.nanoseconds ?: 0) / 1_000_000L
+
+        // Combine both to get total milliseconds
+        val totalMillis = secondsInMillis + nanosecondsInMillis
+
+        // Convert to Date and format
+        val date = Date(totalMillis)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return dateFormat.format(date)
+    }
 }
