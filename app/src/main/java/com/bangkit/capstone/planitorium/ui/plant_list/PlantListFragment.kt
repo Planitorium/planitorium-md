@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.capstone.planitorium.R
+import com.bangkit.capstone.planitorium.core.data.Result
 import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantsItem
-import com.bangkit.capstone.planitorium.core.data.remote.response.plant.StartTime
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.Time
 import com.bangkit.capstone.planitorium.databinding.FragmentPlantListBinding
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -21,17 +23,26 @@ class PlantListFragment : Fragment() {
     private var _binding: FragmentPlantListBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: PlantListAdapter
+    private lateinit var viewModel: PlantListViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, PlantViewModelFactory.getInstance(requireContext()))[PlantListViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val plantListViewModel =
-            ViewModelProvider(this, PlantViewModelFactory.getInstance(requireContext()))[PlantListViewModel::class.java]
-
         _binding = FragmentPlantListBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val loadingProgressBar = binding.loading
 
         val recyclerView = binding.plantRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -39,33 +50,40 @@ class PlantListFragment : Fragment() {
         adapter = PlantListAdapter(emptyList())
         recyclerView.adapter = adapter
 
-
-//        val dummyData = listOf(
-//            PlantsItem("Rose","Do not forget to water daily", "2024-11-22", "2024-12-22"),
-//            PlantsItem("Tulip","Do not forget to water daily", "2024-11-22", "2024-12-22"),
-//            PlantsItem("Cactus","Do not forget to water daily", "2024-11-22", "2024-12-22"),
-//        )
-
-        plantListViewModel.plantList.observe(viewLifecycleOwner) { item ->
-            if (item != null){
-                adapter = PlantListAdapter(item)
-                recyclerView.adapter = adapter
+        viewModel.getPlantList().observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        loadingProgressBar.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        loadingProgressBar.visibility = View.GONE
+                        val plantList = result.data.plants
+                        adapter = PlantListAdapter(plantList)
+                        adapterOnClickCallback()
+                        recyclerView.adapter = adapter
+                    }
+                    is Result.Error -> {
+                        loadingProgressBar.visibility = View.GONE
+                        Toast.makeText(context, "Cannot Load Plants List, ${result.error}", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {}
+                }
             }
-            adapterOnClickCallback()
         }
-        return root
     }
 
     private fun adapterOnClickCallback(){
         adapter.setOnItemClickCallback(object: PlantListAdapter.OnItemClickCallback {
             override fun onItemClicked(data: PlantsItem) {
                 val bundle = Bundle()
+                bundle.putString("id", data.id)
                 bundle.putString("image", data.photo)
-                bundle.putString("date", convertTimestampToDate(data.startTime))
+                bundle.putString("date",data.startTime.toString())
                 bundle.putString("plant_name", data.name)
                 bundle.putString("notes", data.description)
-                bundle.putString("planted_date", convertTimestampToDate(data.startTime))
-                bundle.putString("harvest_date", convertTimestampToDate(StartTime(nanoseconds = data.endTime?.nanoseconds, seconds = data.endTime?.seconds)))
+                bundle.putString("planted_date",data.startTime.toString())
+                bundle.putString("harvest_date", data.endTime.toString())
                 findNavController().navigate(R.id.action_navigation_plant_list_to_plantListDetailFragment, bundle, null)
             }
         })
@@ -74,24 +92,5 @@ class PlantListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun convertTimestampToDate(time: StartTime?): String? {
-        // Ensure the time object and seconds are not null
-        if (time?.seconds == null) return null
-
-        // Convert seconds to milliseconds
-        val secondsInMillis = time.seconds * 1000L
-
-        // Convert nanoseconds to milliseconds (if available)
-        val nanosecondsInMillis = (time.nanoseconds ?: 0) / 1_000_000L
-
-        // Combine both to get total milliseconds
-        val totalMillis = secondsInMillis + nanosecondsInMillis
-
-        // Convert to Date and format
-        val date = Date(totalMillis)
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        return dateFormat.format(date)
     }
 }

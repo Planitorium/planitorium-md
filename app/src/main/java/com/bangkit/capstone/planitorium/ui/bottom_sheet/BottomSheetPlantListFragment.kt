@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import com.bangkit.capstone.planitorium.core.data.Result
 
 class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
 
@@ -43,6 +45,8 @@ class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
             imagePlaceholder.setOnClickListener { imagePickerLauncher.launch(arrayOf("image/*")) }
 
             addPlantButton.setOnClickListener{ validateAndSubmit(plantListViewModel) }
+            loading.visibility = View.GONE
+
         }
 
         return binding?.root
@@ -57,7 +61,9 @@ class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
                 val selectedDate = Calendar.getInstance().apply {
                     set(year, month, dayOfMonth)
                 }
-                val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
                 targetField.setText(dateFormat.format(selectedDate.time))
             },
             calendar.get(Calendar.YEAR),
@@ -80,29 +86,56 @@ class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
 
     private fun validateAndSubmit(viewModel: PlantListViewModel) {
         binding?.apply {
-            val plantName = eventNameField.text.toString()
-            val notes = noteField.text.toString()
-            val startTime = startTimeField.text.toString()
-            val endTime = endTimeField.text.toString()
+            try{
+                val plantName = eventNameField.text.toString()
+                val notes = noteField.text.toString()
+                val startTime = startTimeField.text.toString()
+                val endTime = endTimeField.text.toString()
+                val photoFile: File?
 
-            val photoFile = requireContext().createFileFromUri(selectedImageUri)
 
-            if (plantName.isBlank()) {
-                Toast.makeText(requireContext(), "Plant name cannot be empty", Toast.LENGTH_SHORT).show()
-                return
+                if (plantName.isBlank()) {
+                    Toast.makeText(requireContext(), "Plant name cannot be empty", Toast.LENGTH_SHORT).show()
+                    return
+                }
+
+                if (startTime.isBlank() || endTime.isBlank()) {
+                    Toast.makeText(requireContext(), "Start and end dates must be selected", Toast.LENGTH_SHORT).show()
+                    return
+                }
+
+                if (selectedImageUri == null) {
+                    Toast.makeText(requireContext(), "Please select an image first", Toast.LENGTH_SHORT).show()
+                    return
+                }else{
+                    photoFile = requireContext().createFileFromUri(selectedImageUri)
+                    Log.d("file name", photoFile.name)
+                }
+
+                viewModel.addPlant(photoFile, plantName, notes, startTime, endTime)
+
+                viewModel.plantAddStatus.observe(viewLifecycleOwner) { result ->
+                    when (result) {
+                        is Result.Loading -> {
+                            binding?.loading?.visibility = View.VISIBLE
+                        }
+                        is Result.Success -> {
+                            binding?.loading?.visibility = View.GONE
+                            Toast.makeText(requireContext(), "Plant Added Successfully", Toast.LENGTH_SHORT).show()
+                            dismiss()
+                        }
+                        is Result.Error -> {
+                            binding?.loading?.visibility = View.GONE
+                            Toast.makeText(requireContext(), "Error Adding Plant: ${result.error}", Toast.LENGTH_SHORT).show()
+                            Log.d("add plant Error", result.error)
+                        }
+                    }
+                }
+                Toast.makeText(requireContext(), "Plant Added Successfully", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }catch (e: Error){
+                Toast.makeText(requireContext(), "Error Adding Plant: $e", Toast.LENGTH_SHORT).show()
             }
-
-            if (startTime.isBlank() || endTime.isBlank()) {
-                Toast.makeText(requireContext(), "Start and end dates must be selected", Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            if (selectedImageUri == null) {
-                Toast.makeText(requireContext(), "Please select an image first", Toast.LENGTH_SHORT).show()
-            }
-            viewModel.addPlant(photoFile, plantName, notes, startTime, endTime)
-            Toast.makeText(requireContext(), "Plant Added Successfully", Toast.LENGTH_SHORT).show()
-            dismiss()
         }
     }
 

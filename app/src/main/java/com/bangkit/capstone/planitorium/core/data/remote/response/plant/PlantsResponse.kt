@@ -1,126 +1,59 @@
 package com.bangkit.capstone.planitorium.core.data.remote.response.plant
 
-import kotlinx.parcelize.Parcelize
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-@Parcelize
-data class PlantListResponse(
-
-	@field:SerializedName("plants")
-	val plants: List<PlantsItem?>? = null
-) : Parcelable
-
-@Parcelize
-data class UpdatedAt(
-
-	@field:SerializedName("_nanoseconds")
-	val nanoseconds: Int? = null,
-
-	@field:SerializedName("_seconds")
-	val seconds: Int? = null
-) : Parcelable
-
-@Parcelize
-data class StartTime(
-
-	@field:SerializedName("_nanoseconds")
-	val nanoseconds: Int? = null,
-
-	@field:SerializedName("_seconds")
-	val seconds: Int? = null
-) : Parcelable
-
-@Parcelize
-data class EndTime(
-
-	@field:SerializedName("_nanoseconds")
-	val nanoseconds: Int? = null,
-
-	@field:SerializedName("_seconds")
-	val seconds: Int? = null
-) : Parcelable
-
-@Parcelize
-data class PlantsItem(
-
-	@field:SerializedName("createdAt")
-	val createdAt: CreatedAt? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("description")
-	val description: String? = null,
-
-	@field:SerializedName("photo")
-	val photo: String? = null,
-
-	@field:SerializedName("startTime")
-	val startTime: StartTime? = null,
-
-	@field:SerializedName("id")
-	val id: String? = null,
-
-	@field:SerializedName("endTime")
-	val endTime: EndTime? = null,
-
-	@field:SerializedName("updatedAt")
-	val updatedAt: UpdatedAt? = null
-) : Parcelable
-
-@Parcelize
-data class CreatedAt(
-
-	@field:SerializedName("_nanoseconds")
-	val nanoseconds: Int? = null,
-
-	@field:SerializedName("_seconds")
-	val seconds: Int? = null
-) : Parcelable
-
-
-@Parcelize
 data class AddPlantResponse(
-
-	@field:SerializedName("error")
-	val error: Boolean? = null,
-
-	@field:SerializedName("message")
+	val plant: PlantsItem,
 	val message: String? = null
+)
 
-) : Parcelable
+data class PlantListResponse(
+	val plants: List<PlantsItem?>? = null,
+	val message: String? = null,
+	val error: String? = null
+)
 
-
-@Parcelize
-data class GetPlantDetailResponse(
-	@field:SerializedName("plantDetail")
-	val plantDetail: PlantItem,
-
-	@field:SerializedName("error")
+data class PlantDetailResponse(
+	val plant: PlantsItem,
 	val error: Boolean? = null,
-
-	@field:SerializedName("message")
 	val message: String? = null
+)
 
-): Parcelable
+data class PlantsItem(
+	val createdAt: CreatedAt? = null,
+	val name: String? = null,
+	val description: String? = null,
+	val photo: String? = null,
+	val startTime: String? = null,
+	val id: String? = null,
+	val endTime: String? = null,
+	val updatedAt: UpdatedAt? = null
+)
 
-@Parcelize
-data class PlantItem(
-	@field:SerializedName("photo")
-	val photo: String,
+data class CreatedAt(
+	@field:SerializedName("_nanoseconds")
+	val nanoseconds: Int? = null,
 
-	@field:SerializedName("plantName")
-	val plantName: String,
+	@field:SerializedName("_seconds")
+	val seconds: Int? = null
+)
 
-	@field:SerializedName("description")
-	val description: String,
+data class UpdatedAt(
+	@field:SerializedName("_nanoseconds")
+	val nanoseconds: Int? = null,
 
-	@field:SerializedName("startDate")
-	val startDate: String,
+	@field:SerializedName("_seconds")
+	val seconds: Int? = null
+)
 
-	@field:SerializedName("harvestDate")
-	val endDate: String
+data class Time(
+	@field:SerializedName("_nanoseconds")
+	val nanoseconds: Int? = null,
 
-): Parcelable
+	@field:SerializedName("_seconds")
+	val seconds: Int? = null
+)
+
+
+
 

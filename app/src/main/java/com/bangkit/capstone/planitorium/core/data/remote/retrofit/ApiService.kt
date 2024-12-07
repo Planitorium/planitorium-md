@@ -3,10 +3,10 @@ package com.bangkit.capstone.planitorium.core.data.remote.retrofit
 import com.bangkit.capstone.planitorium.core.data.remote.request.SignInRequest
 import com.bangkit.capstone.planitorium.core.data.remote.request.SignUpRequest
 import com.bangkit.capstone.planitorium.core.data.remote.response.plant.AddPlantResponse
-import com.bangkit.capstone.planitorium.core.data.remote.response.plant.GetPlantDetailResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantListResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignInResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignUpResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantDetailResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.profile.ProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -58,22 +58,26 @@ interface ApiService {
     // Plant endpoints
     @Multipart
     @POST("api/plant/add")
-    fun addPlantApi(
-        @Header("Authorization") token: String,
-        @Part photo: MultipartBody.Part,
-        @Part ("plantName") planeName: RequestBody,
+    suspend fun addPlantApi(
+        @Part photo: MultipartBody.Part?,
+        @Part("name") name: RequestBody,
         @Part("description") description: RequestBody,
-        @Part("startDate") startDate: RequestBody,
-        @Part("endDate") endDate: RequestBody
-    ): Call<AddPlantResponse>
+        @Part("startTime") startTime: RequestBody,
+        @Part("endTime") endTime: RequestBody
+    ): AddPlantResponse
 
     @GET("api/plant/list")
-    fun getPlantListApi(): Call<PlantListResponse>
+    suspend fun getPlantListApi(): PlantListResponse
 
     @GET("api/plant/detail/{id}")
-    fun getPlantDetailApi(
+    suspend fun getPlantDetailApi(
         @Path("id") id: String
-    ): Call<GetPlantDetailResponse>
+    ): PlantDetailResponse
+
+    @GET("api/plant/list/filter")
+    suspend fun getPlantListByDateApi(
+        @Query("endTime") endTime: String
+    ): PlantListResponse
 
 
     //Plant Disease Detection

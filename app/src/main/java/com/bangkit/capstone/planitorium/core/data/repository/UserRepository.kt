@@ -36,10 +36,10 @@ class UserRepository(private val apiService: ApiService, private val pref: Prefe
         try {
             val request = SignInRequest(email, password)
             val response = apiService.loginApi(request)
-/*            response.result?.let { data ->
+            response.result?.let { data ->
                 pref.saveSession(UserModel(data.userId!!, data.token!!))
-            }*/
-            pref.saveSession(UserModel("1", response.token!!))
+            }
+//            pref.saveSession(UserModel("1", response.token!!))
             emit(Result.Success(response))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
