@@ -29,27 +29,15 @@ interface ApiService {
         @Body request: SignInRequest
     ): SignInResponse
 
-    @POST("api/auth/logout")
-    fun logoutApi(
-        @Query("token") active: String
-    ): Call<ResponseBody> // Belum kuubah gegara, API masih salah
-
     //// Authentication endpoint ////
 
     //// Profile endpoints ////
     @GET("api/profile")
     suspend fun getProfileApi(): ProfileResponse
 
-    @GET("api/profile/photo/{filename}")
-    fun getPhotoApi(
-        @Header("Authorization") token: String,
-        @Path("filename") filename : String
-    ): Call<ResponseBody>
-
     @Multipart
     @POST("api/profile/upload")
     fun uploadPhotoApi(
-        @Header("Authorization") token: String,
         @Part photo: MultipartBody.Part
     ): Call<ResponseBody>
 

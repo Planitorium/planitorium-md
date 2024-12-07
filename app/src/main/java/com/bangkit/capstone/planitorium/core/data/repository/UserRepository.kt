@@ -39,7 +39,6 @@ class UserRepository(private val apiService: ApiService, private val pref: Prefe
             response.result?.let { data ->
                 pref.saveSession(UserModel(data.userId!!, data.token!!))
             }
-//            pref.saveSession(UserModel("1", response.token!!))
             emit(Result.Success(response))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
