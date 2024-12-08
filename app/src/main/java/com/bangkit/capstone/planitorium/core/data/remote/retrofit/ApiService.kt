@@ -8,6 +8,7 @@ import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignInRes
 import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignUpResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantDetailResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.profile.ProfileResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.profile.UploadPhotoResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -37,9 +38,9 @@ interface ApiService {
 
     @Multipart
     @POST("api/profile/upload")
-    fun uploadPhotoApi(
+    suspend fun uploadPhotoApi(
         @Part photo: MultipartBody.Part
-    ): Call<ResponseBody>
+    ): UploadPhotoResponse
 
     //// Profile endpoints ////
 

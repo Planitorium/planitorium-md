@@ -72,7 +72,7 @@ class PlantRepository (private val apiService: ApiService){
         emit(Result.Loading)
         try {
             val response = apiService.getPlantListByDateApi(date)
-            val plants = response.plants ?: emptyList()
+            val plants = response.plants
             emit(Result.Success(response.copy(plants = plants)))
         } catch (e: HttpException) {
             if (e.code() == 404) {

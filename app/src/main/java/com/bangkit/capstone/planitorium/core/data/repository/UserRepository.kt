@@ -11,8 +11,13 @@ import com.bangkit.capstone.planitorium.core.data.remote.request.SignUpRequest
 import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignInResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignUpResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.profile.ProfileResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.profile.UploadPhotoResponse
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
+import java.io.File
 
 class UserRepository(private val apiService: ApiService, private val pref: Preference) {
 
@@ -57,6 +62,23 @@ class UserRepository(private val apiService: ApiService, private val pref: Prefe
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, ProfileResponse::class.java)
             emit(Result.Error(errorResponse.error.toString()))
+        }
+    }
+
+    // Upload Photo
+    fun uploadPhoto(photo: File) = liveData {
+        emit(Result.Loading)
+
+        val requestPhoto = photo.asRequestBody("image/jpeg".toMediaType())
+        val multipartBody = MultipartBody.Part.createFormData("photo", photo.name, requestPhoto)
+
+        try {
+            val successResponse = apiService.uploadPhotoApi(multipartBody)
+            emit(Result.Success(successResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, UploadPhotoResponse::class.java)
+            emit(Result.Error(errorResponse.message.toString()))
         }
     }
 

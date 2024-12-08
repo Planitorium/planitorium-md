@@ -8,6 +8,7 @@ import com.bangkit.capstone.planitorium.core.data.remote.response.profile.Profil
 import com.bangkit.capstone.planitorium.core.data.repository.UserRepository
 import kotlinx.coroutines.launch
 import com.bangkit.capstone.planitorium.core.data.Result
+import java.io.File
 
 class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
     private val _profileResult = MutableLiveData<Result<ProfileResponse>>()
@@ -27,4 +28,6 @@ class ProfileViewModel(private val repository: UserRepository) : ViewModel() {
             repository.logout()
         }
     }
+
+    fun uploadPhoto(photo: File) = repository.uploadPhoto(photo)
 }

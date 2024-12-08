@@ -71,4 +71,5 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation(libs.glide)
     implementation(libs.glide.transformations)
+    implementation(libs.circleimageview)
 }
