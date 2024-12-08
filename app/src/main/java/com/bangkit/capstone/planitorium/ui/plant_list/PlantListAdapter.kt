@@ -1,5 +1,6 @@
 package com.bangkit.capstone.planitorium.ui.plant_list
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,13 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.capstone.planitorium.R
 import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantsItem
-import com.bangkit.capstone.planitorium.core.data.remote.response.plant.Time
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class PlantListAdapter(private var items: List<PlantsItem?>?) : RecyclerView.Adapter<PlantListAdapter.PlantViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newData: List<PlantsItem>) {
+        items = newData
+        notifyDataSetChanged()
+    }
 
     class PlantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val date: TextView = view.findViewById(R.id.date)

@@ -1,5 +1,6 @@
 package com.bangkit.capstone.planitorium.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.capstone.planitorium.core.data.Result
 import com.bangkit.capstone.planitorium.databinding.FragmentHomeBinding
-import com.bangkit.capstone.planitorium.core.data.model.PlantItem
 import com.bangkit.capstone.planitorium.ui.plant_list.PlantListViewModel
 import com.bangkit.capstone.planitorium.ui.plant_list.PlantViewModelFactory
 
@@ -39,6 +39,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("DefaultLocale")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -60,11 +61,10 @@ class HomeFragment : Fragment() {
                 if (result != null) {
                     when (result) {
                         is Result.Loading -> {
-//                        loadingProgressBar.visibility = View.VISIBLE
                         }
                         is Result.Success -> {
                             val plantList = result.data.plants
-                            if (plantList.isNullOrEmpty()) {
+                            if (plantList.isEmpty()) {
                                 recyclerView.visibility = View.GONE
                                 noDataTextView.visibility = View.VISIBLE
                             } else {
@@ -76,7 +76,6 @@ class HomeFragment : Fragment() {
                             }
                         }
                         is Result.Error -> {
-//                        loadingProgressBar.visibility = View.GONE
                             Toast.makeText(context, "Cannot Load Plants List, ${result.error}", Toast.LENGTH_SHORT).show()
                         }
                         else -> {}

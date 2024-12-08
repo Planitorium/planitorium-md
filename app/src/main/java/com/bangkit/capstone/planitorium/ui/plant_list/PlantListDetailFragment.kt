@@ -12,12 +12,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.capstone.planitorium.R
 import com.bangkit.capstone.planitorium.core.data.Result
-import com.bangkit.capstone.planitorium.core.data.remote.response.plant.Time
 import com.bangkit.capstone.planitorium.databinding.FragmentPlantListDetailBinding
 import com.bumptech.glide.Glide
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class PlantListDetailFragment : Fragment() {
 
@@ -25,12 +21,6 @@ class PlantListDetailFragment : Fragment() {
     private lateinit var viewModel: PlantListViewModel
     private val binding get() = _binding!!
     private var id: String? = null
-    private var date: String? = null
-    private var image: String? = null
-    private var plantName: String? = null
-    private var notes: String? = null
-    private var plantedDate: String? = null
-    private var harvestDate: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,12 +39,6 @@ class PlantListDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let { bundle ->
             id = bundle.getString("id")
-//            date = bundle.getString("date")
-//            image = bundle.getString("image")
-//            plantName = bundle.getString("plant_name")
-//            notes = bundle.getString("notes")
-//            plantedDate = bundle.getString("planted_date")
-//            harvestDate = bundle.getString("harvest_date")
         }
         val dateView: TextView = binding.postDate
         val imageView: ImageView = binding.image
@@ -95,12 +79,5 @@ class PlantListDetailFragment : Fragment() {
                 }
             }
         }
-
-//        dateView.text = date
-//        imageView.setImageResource(R.drawable.placeholder)
-//        nameView.text = plantName
-//        noteView.text = notes
-//        plantedDateView.text = plantedDate
-//        harvestDateView.text = harvestDate
     }
 }

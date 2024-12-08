@@ -1,7 +1,9 @@
 package com.bangkit.capstone.planitorium.ui.bottom_sheet
 
+import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,7 @@ import android.view.ViewGroup
 import com.google.android.material.textfield.TextInputEditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.capstone.planitorium.databinding.FragmentBottomSheetPlantListBinding
 import com.bangkit.capstone.planitorium.ui.plant_list.PlantListViewModel
@@ -26,6 +29,7 @@ class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBottomSheetPlantListBinding? = null
     private val binding get() = _binding
+    private lateinit var viewModel: PlantListViewModel
 
     private var selectedImageUri: Uri? = null
 
@@ -33,7 +37,7 @@ class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val plantListViewModel =
+        viewModel =
             ViewModelProvider(this, PlantViewModelFactory.getInstance(requireContext()))[PlantListViewModel::class.java]
         _binding = FragmentBottomSheetPlantListBinding.inflate(inflater, container, false)
 
@@ -44,7 +48,7 @@ class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
 
             imagePlaceholder.setOnClickListener { imagePickerLauncher.launch(arrayOf("image/*")) }
 
-            addPlantButton.setOnClickListener{ validateAndSubmit(plantListViewModel) }
+            addPlantButton.setOnClickListener{ validateAndSubmit() }
             loading.visibility = View.GONE
 
         }
@@ -84,7 +88,7 @@ class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
             } ?: Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
         }
 
-    private fun validateAndSubmit(viewModel: PlantListViewModel) {
+    private fun validateAndSubmit() {
         binding?.apply {
             try{
                 val plantName = eventNameField.text.toString()
@@ -111,7 +115,6 @@ class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
                     photoFile = requireContext().createFileFromUri(selectedImageUri)
                     Log.d("file name", photoFile.name)
                 }
-
                 viewModel.addPlant(photoFile, plantName, notes, startTime, endTime)
 
                 viewModel.plantAddStatus.observe(viewLifecycleOwner) { result ->
@@ -121,8 +124,8 @@ class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
                         }
                         is Result.Success -> {
                             binding?.loading?.visibility = View.GONE
-                            Toast.makeText(requireContext(), "Plant Added Successfully", Toast.LENGTH_SHORT).show()
                             dismiss()
+                            Toast.makeText(requireContext(), "Plant Added Successfully", Toast.LENGTH_SHORT).show()
                         }
                         is Result.Error -> {
                             binding?.loading?.visibility = View.GONE
@@ -131,8 +134,6 @@ class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
                         }
                     }
                 }
-                Toast.makeText(requireContext(), "Plant Added Successfully", Toast.LENGTH_SHORT).show()
-                dismiss()
             }catch (e: Error){
                 Toast.makeText(requireContext(), "Error Adding Plant: $e", Toast.LENGTH_SHORT).show()
             }
@@ -154,5 +155,20 @@ class BottomSheetPlantListFragment : BottomSheetDialogFragment() {
         }
 
         return tempFile
+    }
+
+    interface AddPlantListener {
+        fun onPlantAdded()
+    }
+
+    private var listener: AddPlantListener? = null
+
+    fun setListener(listener: AddPlantListener) {
+        this.listener = listener
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        listener?.onPlantAdded()
     }
 }

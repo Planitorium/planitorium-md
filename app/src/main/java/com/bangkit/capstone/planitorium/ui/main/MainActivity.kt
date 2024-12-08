@@ -2,11 +2,15 @@ package com.bangkit.capstone.planitorium.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -16,6 +20,7 @@ import com.bangkit.capstone.planitorium.core.utils.ViewModelFactory
 import com.bangkit.capstone.planitorium.databinding.ActivityMainBinding
 import com.bangkit.capstone.planitorium.ui.bottom_sheet.BottomSheetDiseaseDetectionFragment
 import com.bangkit.capstone.planitorium.ui.bottom_sheet.BottomSheetPlantListFragment
+import com.bangkit.capstone.planitorium.ui.plant_list.PlantListFragment
 import com.bangkit.capstone.planitorium.ui.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -70,7 +75,16 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_plant_list -> {
                     binding.fab.visibility = View.VISIBLE
                     binding.fab.setOnClickListener {
-                        BottomSheetPlantListFragment().show(supportFragmentManager, "plant_list_bottom_sheet")
+                        val bottomSheetFragment = BottomSheetPlantListFragment()
+                        val currentFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)
+                            ?.childFragmentManager
+                            ?.fragments
+                            ?.firstOrNull()
+
+                        if (currentFragment is PlantListFragment) {
+                            bottomSheetFragment.setListener(currentFragment)
+                            bottomSheetFragment.show(supportFragmentManager, "plant_list_bottom_sheet")
+                        }
                     }
                     navView.visibility = View.VISIBLE
                 }

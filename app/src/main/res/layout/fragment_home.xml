@@ -22,7 +22,7 @@
         android:id="@+id/noDataTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No plants to harvest at the selected date"
+        android:text="No Crops to harvest at the selected date"
         android:textSize="16sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
