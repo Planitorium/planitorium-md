@@ -1,49 +1,70 @@
 package com.bangkit.capstone.planitorium.ui.detection
 
-import android.annotation.SuppressLint
+import androidx.recyclerview.widget.ListAdapter
+import com.bangkit.capstone.planitorium.core.data.remote.response.detection.DetectionsItem
+import com.bangkit.capstone.planitorium.databinding.DiseaseDetectionItemBinding
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.capstone.planitorium.R
-import com.bangkit.capstone.planitorium.core.data.remote.response.detection.DetectionsItem
 import com.bumptech.glide.Glide
 
-class DetectionAdapter(private var items: List<DetectionsItem>) : RecyclerView.Adapter<DetectionAdapter.DiseaseViewHolder>() {
+class DetectionAdapter : ListAdapter<DetectionsItem, DetectionAdapter.DetectionViewHolder>(DiffCallback) {
 
-    class DiseaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val date: TextView = itemView.findViewById(R.id.checked_date)
-        val plantName: TextView = itemView.findViewById(R.id.disease_name)
-        val confidence: TextView = itemView.findViewById(R.id.confidence)
-        val imageView: ImageView = itemView.findViewById(R.id.disease_image)
+    private var onItemClickListener: ((DetectionsItem) -> Unit)? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetectionViewHolder {
+        val binding = DiseaseDetectionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return DetectionViewHolder(binding)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiseaseViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.disease_detection_item, parent, false)
-        return DiseaseViewHolder(view)
+    override fun onBindViewHolder(holder: DetectionViewHolder, position: Int) {
+        val detection = getItem(position)
+        holder.bind(detection)
     }
 
-    override fun onBindViewHolder(holder: DiseaseViewHolder, position: Int) {
-        val item = items[position]
+    inner class DetectionViewHolder(private val binding: DiseaseDetectionItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        holder.date.text = item.createdAt?.substring(0, 10)
-        holder.plantName.text = item.plantName
-        holder.confidence.text = item.confidence
-        Glide.with(holder.itemView.context)
-            .load(item.photoUrl)
-            .placeholder(R.drawable.placeholder)
-            .into(holder.imageView)
+        fun bind(detection: DetectionsItem) {
+            binding.apply {
+                checkedDate.text = detection.createdAt?.substring(0, 10)
+                diseaseName.text = detection.plantName
+                result.text = detection.result
+
+                val formattedConfidence = itemView.context.getString(
+                    R.string.confidence,
+                    detection.confidence?.split(".")?.get(0)
+                )
+                confidence.text = formattedConfidence
+
+                Glide.with(itemView.context)
+                    .load(detection.photoUrl)
+                    .into(diseaseImage)
+
+                root.setOnClickListener {
+                    onItemClickListener?.let { clickListener ->
+                        clickListener(detection)
+                    }
+                }
+            }
+        }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
+    fun setOnItemClickListener(listener: (DetectionsItem) -> Unit) {
+        onItemClickListener = listener
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newData: List<DetectionsItem>) {
-        items = newData
-        notifyDataSetChanged()
+    companion object {
+        private val DiffCallback = object : DiffUtil.ItemCallback<DetectionsItem>() {
+            override fun areItemsTheSame(oldItem: DetectionsItem, newItem: DetectionsItem): Boolean {
+                return oldItem.createdAt == newItem.createdAt
+            }
+
+            override fun areContentsTheSame(oldItem: DetectionsItem, newItem: DetectionsItem): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

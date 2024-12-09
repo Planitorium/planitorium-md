@@ -1,84 +1,86 @@
 package com.bangkit.capstone.planitorium.ui.detection
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.viewModels
 import com.bangkit.capstone.planitorium.core.data.Result
-import com.bangkit.capstone.planitorium.databinding.FragmentDiseaseDetectionBinding
-import com.bangkit.capstone.planitorium.core.data.model.DiseaseItem
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.capstone.planitorium.core.utils.DetectionViewModelFactory
+import com.bangkit.capstone.planitorium.databinding.FragmentDiseaseDetectionBinding
 import com.bangkit.capstone.planitorium.ui.bottom_sheet.BottomSheetDiseaseDetectionFragment
 
-class DetectionFragment : Fragment(), BottomSheetDiseaseDetectionFragment.AddDetectionListener {
+class DetectionFragment: Fragment(), BottomSheetDiseaseDetectionFragment.AddDetectionListener{
 
     private var _binding: FragmentDiseaseDetectionBinding? = null
-    private val binding get() = _binding!!
-    private lateinit var viewModel: DetectionViewModel
-    private lateinit var adapter: DetectionAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var loadingProgressBar: ProgressBar
+    private val binding get() = _binding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this, DetectionViewModelFactory.getInstance(requireContext()))[DetectionViewModel::class.java]
-    }
+    private val viewModel: DetectionViewModel by viewModels { DetectionViewModelFactory.getInstance(requireContext()) }
+    private lateinit var adapter: DetectionAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentDiseaseDetectionBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = binding.recyclerView
-        loadingProgressBar = binding.loading
-        adapter = DetectionAdapter(emptyList())
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
+
+        setupRecyclerView()
         observeDetection()
+
+        viewModel.getDetectionList()
     }
 
-    private fun observeDetection(){
-        viewModel.getDetectionList().observe(viewLifecycleOwner){ result ->
-            when(result){
+    private fun setupRecyclerView() {
+        adapter = DetectionAdapter().apply {
+            setOnItemClickListener { detection ->
+                val intent = Intent(requireContext(), DetectionDetailActivity::class.java)
+                intent.putExtra("DETECTION_ID", detection.plantName)
+                startActivity(intent)
+            }
+        }
+
+        binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
+        binding?.recyclerView?.adapter = adapter
+    }
+
+    private fun observeDetection() {
+        viewModel.detectionListResult.observe(viewLifecycleOwner) { result ->
+            when (result) {
                 is Result.Loading -> {
-                    loadingProgressBar.visibility = View.VISIBLE
+                    showLoading(true)
                 }
                 is Result.Success -> {
-                    loadingProgressBar.visibility = View.GONE
-                    val detectionList = result.data.data?.detections
-                    if (detectionList != null) {
-                        adapter.updateData(detectionList)
-                    }
+                    showLoading(false)
+                    adapter.submitList(result.data.data?.detections)
                 }
                 is Result.Error -> {
-                    loadingProgressBar.visibility = View.GONE
-                    Toast.makeText(context, "Cannot Load Detection List, ${result.error}", Toast.LENGTH_SHORT).show()
+                    showLoading(false)
+                    Toast.makeText(context, result.error, Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
     override fun onDetectionAdded() {
-        Log.d("Listening Add Detection", "Added Detection Successful")
-        observeDetection()
+        viewModel.getDetectionList()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding?.loading?.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

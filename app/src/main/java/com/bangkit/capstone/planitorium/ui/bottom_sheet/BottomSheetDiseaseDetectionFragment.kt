@@ -47,7 +47,7 @@ class BottomSheetDiseaseDetectionFragment : BottomSheetDialogFragment() {
             uri?.let {
                 selectedImage = uriToFile(it, requireContext()).reduceFileImage()
                 binding?.imagePlaceholder?.apply {
-                    binding?.imagePlaceholder?.visibility = View.VISIBLE
+                    visibility = View.VISIBLE
                     setImageURI(it)
                 }
             } ?: Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
@@ -70,15 +70,16 @@ class BottomSheetDiseaseDetectionFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun addDetection(photo: File?, name: String, loadingProgressBar: ProgressBar){
+    private fun addDetection(photo: File?, name: String, loadingProgressBar: ProgressBar) {
         viewModel.addDetection(photo, name).observe(viewLifecycleOwner) { result ->
-            when(result){
+            when (result) {
                 is Result.Loading -> {
                     loadingProgressBar.visibility = View.VISIBLE
                 }
                 is Result.Success -> {
                     loadingProgressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), "Detection Success", Toast.LENGTH_SHORT).show()
+                    listener?.onDetectionAdded()
                     dismiss()
                 }
                 is Result.Error -> {
@@ -88,12 +89,6 @@ class BottomSheetDiseaseDetectionFragment : BottomSheetDialogFragment() {
                 }
             }
         }
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     interface AddDetectionListener {
@@ -109,5 +104,10 @@ class BottomSheetDiseaseDetectionFragment : BottomSheetDialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         listener?.onDetectionAdded()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
