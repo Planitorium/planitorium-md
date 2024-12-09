@@ -17,7 +17,9 @@ import com.bangkit.capstone.planitorium.core.data.Result
 import com.bangkit.capstone.planitorium.databinding.FragmentHomeBinding
 import com.bangkit.capstone.planitorium.ui.plant_list.PlantListViewModel
 import com.bangkit.capstone.planitorium.core.utils.PlantViewModelFactory
+import java.util.Calendar
 
+@Suppress("NAME_SHADOWING")
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -51,38 +53,63 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+        val currentDate = Calendar.getInstance()
+        val currentYear = currentDate.get(Calendar.YEAR)
+        val currentMonth = currentDate.get(Calendar.MONTH)
+        val currentDay = currentDate.get(Calendar.DAY_OF_MONTH)
+        val formattedMonth = String.format("%02d", currentMonth + 1)
+        val formattedDay = String.format("%02d", currentDay)
+        selectedDate = "$currentYear-$formattedMonth-$formattedDay"
+
+        loadPlantListForDate(selectedDate)
+
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val formattedMonth = String.format("%02d", month + 1) // Add 1 to month as it starts from 0
             val formattedDay = String.format("%02d", dayOfMonth)  // Ensure day is always 2 digits
             selectedDate = "$year-$formattedMonth-$formattedDay"
             Log.d("CalendarView", "Selected Date: $selectedDate")
 
-            viewModel.getPlantListByDate(selectedDate).observe(viewLifecycleOwner){ result ->
-                if (result != null) {
-                    when (result) {
-                        is Result.Loading -> {
-                        }
-                        is Result.Success -> {
-                            val plantList = result.data.plants
-                            if (plantList.isEmpty()) {
-                                recyclerView.visibility = View.GONE
-                                noDataTextView.visibility = View.VISIBLE
-                            } else {
-                                recyclerView.visibility = View.VISIBLE
-                                noDataTextView.visibility = View.GONE
+            loadPlantListForDate(selectedDate)
+        }
+    }
 
-                                adapter = HomePlantAdapter(plantList)
-                                recyclerView.adapter = adapter
-                            }
+    private fun loadPlantListForDate(date: String) {
+        val recyclerView: RecyclerView = binding.eventsRecyclerView
+        val noDataTextView: TextView = binding.noDataTextView
+
+        viewModel.getPlantListByDate(date).observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+                    is Result.Success -> {
+                        showLoading(false)
+
+                        val plantList = result.data.plants
+                        if (plantList.isEmpty()) {
+                            recyclerView.visibility = View.GONE
+                            noDataTextView.visibility = View.VISIBLE
+                        } else {
+                            recyclerView.visibility = View.VISIBLE
+                            noDataTextView.visibility = View.GONE
+
+                            // Update adapter dengan data terbaru
+                            adapter = HomePlantAdapter(plantList)
+                            recyclerView.adapter = adapter
                         }
-                        is Result.Error -> {
-                            Toast.makeText(context, "Cannot Load Plants List, ${result.error}", Toast.LENGTH_SHORT).show()
-                        }
-                        else -> {}
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+                        Toast.makeText(context, "Cannot Load Plants List, ${result.error}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.loading.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {

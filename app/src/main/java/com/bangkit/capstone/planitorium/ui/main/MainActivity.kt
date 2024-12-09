@@ -96,7 +96,6 @@ class MainActivity : AppCompatActivity() {
                             ?.firstOrNull()
 
                         if (currentFragment is DetectionFragment) {
-                            Log.d("Current Fragment", currentFragment.toString())
                             bottomSheetFragment.setListener(currentFragment)
                             bottomSheetFragment.show(supportFragmentManager, "disease_detection_bottom_sheet")
                         }
