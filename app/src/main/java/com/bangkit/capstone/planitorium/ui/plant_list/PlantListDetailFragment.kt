@@ -41,7 +41,6 @@ class PlantListDetailFragment : Fragment() {
         arguments?.let { bundle ->
             id = bundle.getString("id")
         }
-        val dateView: TextView = binding.postDate
         val imageView: ImageView = binding.image
         val nameView: TextView = binding.plantName
         val noteView: TextView = binding.plantNotes
@@ -66,12 +65,10 @@ class PlantListDetailFragment : Fragment() {
                             .placeholder(R.drawable.placeholder)
                             .into(imageView)
 
-                        dateView.text = plant.startTime.toString()
                         nameView.text = plant.name
                         noteView.text = plant.description
                         plantedDateView.text = plant.startTime.toString()
                         harvestDateView.text = plant.endTime.toString()
-
                     }
                     is Result.Error -> {
                         loadingProgressBar.visibility = View.GONE

@@ -36,8 +36,10 @@
 
     <!-- Plants -->
     <string name="plant_name">Plant Name</string>
+    <string name="notes">Notes:</string>
     <string name="date">Date</string>
-    <string name="healthy">Healthy: %s%%</string>
+    <string name="result">Bercak Daun Abu-abu</string>
+    <string name="confidence">Confidence: %s%%</string>
     <string name="add_image">Add Image</string>
     <string name="plant_image">Plant Image</string>
     <string name="add_new_plant">Add New Plant</string>
@@ -52,5 +54,5 @@
     <!-- Other -->
     <string name="default_image">images</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="no_crops">No Crops to harvest at the selected date</string>
 </resources>

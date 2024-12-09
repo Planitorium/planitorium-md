@@ -8,7 +8,7 @@ data class AddPlantResponse(
 data class PlantListResponse(
 	val plants: List<PlantsItem>,
 	val message: String? = null,
-	val error: String? = null
+	val error: Boolean? = null
 )
 
 data class PlantDetailResponse(
