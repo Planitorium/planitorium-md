@@ -6,6 +6,8 @@ import com.bangkit.capstone.planitorium.core.data.remote.response.plant.AddPlant
 import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantListResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignInResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignUpResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.detection.AddDetectionResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.detection.DetectionResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantDetailResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.profile.ProfileResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.profile.UploadPhotoResponse
@@ -32,6 +34,7 @@ interface ApiService {
 
     //// Authentication endpoint ////
 
+
     //// Profile endpoints ////
     @GET("api/profile")
     suspend fun getProfileApi(): ProfileResponse
@@ -44,7 +47,8 @@ interface ApiService {
 
     //// Profile endpoints ////
 
-    // Plant endpoints
+
+    //// Plant endpoints ////
     @Multipart
     @POST("api/plant/add")
     suspend fun addPlantApi(
@@ -67,24 +71,24 @@ interface ApiService {
     suspend fun getPlantListByDateApi(
         @Query("endTime") endTime: String
     ): PlantListResponse
+    //// Plant endpoints ////
 
 
-    //Plant Disease Detection
+    //// Detection End Points ////
     @Multipart
     @POST("api/detection/add")
-    fun addDetectionApi(
-        @Header("Authorization") token: String,
-        @Part photo: MultipartBody.Part,
-        @Part ("name") name: String,
-        @Part ("description") description: String
-    ): Call<ResponseBody>
+    suspend fun addDetectionApi(
+        @Part photo: MultipartBody.Part?,
+        @Part ("plantName") name: RequestBody,
+    ): AddDetectionResponse
 
     @GET("api/detection/list")
-    fun getDetectionListApi(): Call<ResponseBody>
+    suspend fun getDetectionListApi(): DetectionResponse
 
     @GET("api/detection/photo/{filename}")
     fun getDetectionPhotoApi(
         @Path("filename") filename: String
     ): Call<ResponseBody>
+    //// Detection End Points ////
 
 }

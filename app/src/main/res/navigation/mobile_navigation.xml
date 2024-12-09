@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/navigation_detection"
-        android:name="com.bangkit.capstone.planitorium.ui.disease_detection.DiseaseDetectionFragment"
+        android:name="com.bangkit.capstone.planitorium.ui.detection.DetectionFragment"
         android:label="Disease Detection"
         tools:layout="@layout/fragment_disease_detection" />
 

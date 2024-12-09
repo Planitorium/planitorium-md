@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.capstone.planitorium.core.data.Result
 import com.bangkit.capstone.planitorium.databinding.FragmentHomeBinding
 import com.bangkit.capstone.planitorium.ui.plant_list.PlantListViewModel
-import com.bangkit.capstone.planitorium.ui.plant_list.PlantViewModelFactory
+import com.bangkit.capstone.planitorium.core.utils.PlantViewModelFactory
 
 class HomeFragment : Fragment() {
 

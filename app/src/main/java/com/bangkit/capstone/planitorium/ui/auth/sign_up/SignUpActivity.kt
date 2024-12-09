@@ -12,14 +12,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.planitorium.R
 import com.bangkit.capstone.planitorium.core.data.Result
-import com.bangkit.capstone.planitorium.core.utils.ViewModelFactory
+import com.bangkit.capstone.planitorium.core.utils.UserViewModelFactory
 import com.bangkit.capstone.planitorium.databinding.ActivitySignUpBinding
 import com.bangkit.capstone.planitorium.ui.auth.sign_in.SignInActivity
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
-    private val viewModel by viewModels<SignUpViewModel> { ViewModelFactory.getInstance(this) }
+    private val viewModel by viewModels<SignUpViewModel> { UserViewModelFactory.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

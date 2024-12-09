@@ -4,29 +4,27 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.setFragmentResultListener
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bangkit.capstone.planitorium.R
-import com.bangkit.capstone.planitorium.core.utils.ViewModelFactory
+import com.bangkit.capstone.planitorium.core.utils.UserViewModelFactory
 import com.bangkit.capstone.planitorium.databinding.ActivityMainBinding
 import com.bangkit.capstone.planitorium.ui.bottom_sheet.BottomSheetDiseaseDetectionFragment
 import com.bangkit.capstone.planitorium.ui.bottom_sheet.BottomSheetPlantListFragment
+import com.bangkit.capstone.planitorium.ui.detection.DetectionFragment
 import com.bangkit.capstone.planitorium.ui.plant_list.PlantListFragment
 import com.bangkit.capstone.planitorium.ui.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel by viewModels<MainViewModel> { ViewModelFactory.getInstance(this) }
+    private val viewModel by viewModels<MainViewModel> { UserViewModelFactory.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +89,17 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_detection -> {
                     binding.fab.visibility = View.VISIBLE
                     binding.fab.setOnClickListener {
-                        BottomSheetDiseaseDetectionFragment().show(supportFragmentManager, "disease_detection_bottom_sheet")
+                        val bottomSheetFragment = BottomSheetDiseaseDetectionFragment()
+                        val currentFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)
+                            ?.childFragmentManager
+                            ?.fragments
+                            ?.firstOrNull()
+
+                        if (currentFragment is DetectionFragment) {
+                            Log.d("Current Fragment", currentFragment.toString())
+                            bottomSheetFragment.setListener(currentFragment)
+                            bottomSheetFragment.show(supportFragmentManager, "disease_detection_bottom_sheet")
+                        }
                     }
                     navView.visibility = View.VISIBLE
                 }

@@ -17,12 +17,12 @@ import com.bangkit.capstone.planitorium.R
 import com.bangkit.capstone.planitorium.databinding.FragmentProfileBinding
 import com.bumptech.glide.Glide
 import com.bangkit.capstone.planitorium.core.data.Result
-import com.bangkit.capstone.planitorium.core.utils.ViewModelFactory
+import com.bangkit.capstone.planitorium.core.utils.UserViewModelFactory
 import com.bangkit.capstone.planitorium.core.utils.reduceFileImage
 import com.bangkit.capstone.planitorium.core.utils.uriToFile
 
 class ProfileFragment : Fragment() {
-    private val viewModel: ProfileViewModel by viewModels { ViewModelFactory.getInstance(requireContext()) }
+    private val viewModel: ProfileViewModel by viewModels { UserViewModelFactory.getInstance(requireContext()) }
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 

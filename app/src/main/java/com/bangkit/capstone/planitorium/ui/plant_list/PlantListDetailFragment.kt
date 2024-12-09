@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.capstone.planitorium.R
 import com.bangkit.capstone.planitorium.core.data.Result
+import com.bangkit.capstone.planitorium.core.utils.PlantViewModelFactory
 import com.bangkit.capstone.planitorium.databinding.FragmentPlantListDetailBinding
 import com.bumptech.glide.Glide
 

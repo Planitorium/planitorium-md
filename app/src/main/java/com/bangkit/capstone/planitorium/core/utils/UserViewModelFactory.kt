@@ -10,7 +10,7 @@ import com.bangkit.capstone.planitorium.ui.auth.sign_up.SignUpViewModel
 import com.bangkit.capstone.planitorium.ui.main.MainViewModel
 import com.bangkit.capstone.planitorium.ui.profile.ProfileViewModel
 
-class ViewModelFactory private constructor(
+class UserViewModelFactory private constructor(
     private val userRepository: UserRepository,
 ) : ViewModelProvider.Factory {
 
@@ -35,12 +35,12 @@ class ViewModelFactory private constructor(
 
     companion object {
         @Volatile
-        private var instance: ViewModelFactory? = null
+        private var instance: UserViewModelFactory? = null
 
-        fun getInstance(context: Context): ViewModelFactory {
+        fun getInstance(context: Context): UserViewModelFactory {
             return instance ?: synchronized(this) {
                 val userRepository = Injection.provideUserRepository(context)
-                instance ?: ViewModelFactory(userRepository)
+                instance ?: UserViewModelFactory(userRepository)
             }.also { instance = it }
         }
     }

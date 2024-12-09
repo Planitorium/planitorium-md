@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.planitorium.R
-import com.bangkit.capstone.planitorium.core.utils.ViewModelFactory
+import com.bangkit.capstone.planitorium.core.utils.UserViewModelFactory
 import com.bangkit.capstone.planitorium.databinding.ActivitySignInBinding
 import com.bangkit.capstone.planitorium.ui.auth.sign_up.SignUpActivity
 import com.bangkit.capstone.planitorium.core.data.Result
@@ -19,7 +19,7 @@ import com.bangkit.capstone.planitorium.ui.main.MainActivity
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
-    private val viewModel by viewModels<SignInViewModel> { ViewModelFactory.getInstance(this) }
+    private val viewModel by viewModels<SignInViewModel> { UserViewModelFactory.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

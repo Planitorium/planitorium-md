@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.capstone.planitorium.R
 import com.bangkit.capstone.planitorium.core.data.Result
 import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantsItem
+import com.bangkit.capstone.planitorium.core.utils.PlantViewModelFactory
 import com.bangkit.capstone.planitorium.databinding.FragmentPlantListBinding
 import com.bangkit.capstone.planitorium.ui.bottom_sheet.BottomSheetPlantListFragment
 
