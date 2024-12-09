@@ -45,11 +45,11 @@ class SignInActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString().trim()
 
             if (email.isEmpty()) {
-                binding.emailTextInputLayout.error = R.string.email_empty.toString()
+                binding.emailTextInputLayout.error = getString(R.string.email_empty)
                 return@setOnClickListener
             }
             if (password.isEmpty()) {
-                binding.passwordTextInputLayout.error = R.string.password_empty.toString()
+                binding.passwordTextInputLayout.error = getString(R.string.password_empty)
                 return@setOnClickListener
             }
 
@@ -65,7 +65,7 @@ class SignInActivity : AppCompatActivity() {
                 }
                 is Result.Success -> {
                     showLoading(false)
-                    showToast(R.string.signin_success.toString())
+                    showToast(getString(R.string.signin_success))
 
                     val intent = Intent(this, MainActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
