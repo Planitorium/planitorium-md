@@ -44,7 +44,7 @@ class DetectionFragment: Fragment(), BottomSheetDiseaseDetectionFragment.AddDete
         adapter = DetectionAdapter().apply {
             setOnItemClickListener { detection ->
                 val intent = Intent(requireContext(), DetectionDetailActivity::class.java)
-                intent.putExtra("DETECTION_ID", detection.plantName)
+                intent.putExtra(DetectionDetailActivity.EXTRA_DETECTION_ID, detection.id)
                 startActivity(intent)
             }
         }

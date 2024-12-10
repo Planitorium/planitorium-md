@@ -26,4 +26,6 @@ class DetectionViewModel(
             }
         }
     }
+
+    fun getDetectionById(id: String) = repository.getDetectionDetail(id)
 }

@@ -13,6 +13,7 @@ data class AddDetectionResponse(
 )
 
 data class DetectionsItem(
+	val id: String? = null,
 	val result: String? = null,
 	val createdAt: String? = null,
 	val photoUrl: String? = null,

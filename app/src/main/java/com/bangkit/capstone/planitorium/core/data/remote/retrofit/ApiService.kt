@@ -7,6 +7,7 @@ import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantLis
 import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignInResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.auth.SignUpResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.detection.AddDetectionResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.detection.DetectionDetailResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.detection.DetectionResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantDetailResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.profile.ProfileResponse
@@ -85,10 +86,10 @@ interface ApiService {
     @GET("api/detection/list")
     suspend fun getDetectionListApi(): DetectionResponse
 
-    @GET("api/detection/photo/{filename}")
-    fun getDetectionPhotoApi(
-        @Path("filename") filename: String
-    ): Call<ResponseBody>
+    @GET("api/detection/detail/{id}")
+    suspend fun getDetectionDetail(
+        @Path("id") id: String
+    ): DetectionDetailResponse
     //// Detection End Points ////
 
 }

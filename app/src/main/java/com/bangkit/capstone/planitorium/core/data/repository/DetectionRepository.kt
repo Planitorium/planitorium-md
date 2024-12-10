@@ -2,8 +2,9 @@ package com.bangkit.capstone.planitorium.core.data.repository
 
 import androidx.lifecycle.liveData
 import com.bangkit.capstone.planitorium.core.data.Result
+import com.bangkit.capstone.planitorium.core.data.remote.response.detection.DetectionDetailResponse
+import com.bangkit.capstone.planitorium.core.data.remote.response.detection.DetectionResponse
 import com.bangkit.capstone.planitorium.core.data.remote.response.plant.AddPlantResponse
-import com.bangkit.capstone.planitorium.core.data.remote.response.plant.PlantListResponse
 import com.bangkit.capstone.planitorium.core.data.remote.retrofit.ApiService
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -50,22 +51,22 @@ class DetectionRepository (private val apiService: ApiService){
             emit(Result.Success(response))
         }catch (e: HttpException){
             val errorBody = e.response()?.errorBody()?.string()
-            val errorResponse = Gson().fromJson(errorBody, PlantListResponse::class.java)
+            val errorResponse = Gson().fromJson(errorBody, DetectionResponse::class.java)
             emit(Result.Error(errorResponse.error.toString()))
         }
     }
 
-//    fun getPlantDetail(id: String) = liveData {
-//        emit(Result.Loading)
-//        try{
-//            val response = apiService.getPlantDetailApi(id)
-//            emit(Result.Success(response))
-//        }catch (e: HttpException){
-//            val errorBody = e.response()?.errorBody()?.string()
-//            val errorResponse = Gson().fromJson(errorBody, PlantDetailResponse::class.java)
-//            emit(Result.Error(errorResponse.error.toString()))
-//        }
-//    }
+    fun getDetectionDetail(id: String) = liveData {
+        emit(Result.Loading)
+        try{
+            val response = apiService.getDetectionDetail(id)
+            emit(Result.Success(response))
+        }catch (e: HttpException){
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, DetectionDetailResponse::class.java)
+            emit(Result.Error(errorResponse.error.toString()))
+        }
+    }
 
     companion object {
         @Volatile
