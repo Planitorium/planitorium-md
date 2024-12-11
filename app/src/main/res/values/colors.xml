@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="custom_light_green">#50C878</color>
+    <color name="custom_green">#1CAC78</color>
+    <color name="chartreuse">#7FFF00</color>
+    <color name="lawn_green">#7CFC00</color>
+    <color name="greenYellow">#ADFF2F</color>
+    <color name="yellow_green">#9ACD32</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="white">#FFFFFF</color>
     <color name="ivory">#FFFFF0</color>
     <color name="light_yellow">#FFFFE0</color>
@@ -80,12 +86,10 @@
     <color name="powder_blue">#B0E0E6</color>
     <color name="light_steel_blue">#B0C4DE</color>
     <color name="pale_turquoise">#AFEEEE</color>
-    <color name="greenYellow">#ADFF2F</color>
     <color name="light_blue">#ADD8E6</color>
     <color name="dark_gray">#A9A9A9</color>
     <color name="brown">#A52A2A</color>
     <color name="sienna">#A0522D</color>
-    <color name="yellow_green">#9ACD32</color>
     <color name="dark_orchid">#9932CC</color>
     <color name="pale_green">#98FB98</color>
     <color name="dark_violet">#9400D3</color>
@@ -103,8 +107,6 @@
     <color name="purple">#800080</color>
     <color name="maroon">#800000</color>
     <color name="aquamarine">#7FFFD4</color>
-    <color name="chartreuse">#7FFF00</color>
-    <color name="lawn_green">#7CFC00</color>
     <color name="medium_slate_blue">#7B68EE</color>
     <color name="light_slate_gray">#778899</color>
     <color name="slate_gray">#708090</color>
