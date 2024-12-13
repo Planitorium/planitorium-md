@@ -1,5 +1,3 @@
-This repository is made to documenting the work of mobile development division
-
 ## Getting Started📲
 
 ### Pre-requisite
@@ -27,3 +25,10 @@ This repository is made to documenting the work of mobile development division
 - 🖼️User Interface :
   - [Glide](https://github.com/bumptech/glide)
   - [CircleImageView](https://github.com/hdodenhof/CircleImageView)
+
+## Mobile Team 💻
+
+| Bangkit ID   | Name                            | Universitas           | LinkedIn                                                                                                                                                                   |
+| ------------ | ------------------------------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| a172b4ky1189 | Dustin Lionel                   | Universitas Mikroskil | [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/dustin-lionel-398487224/) |
+| a172b4ky3088 | Muhammad Shahwal Ramadhan Boger | Universitas Mikroskil | [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/muhammad-shahwal/)        |
